@@ -1,13 +1,24 @@
-import { useState } from 'react';
 import styles from './App.module.css';
 import Main from './components/Main/Main.jsx';
+import Welcome from './components/Welcome/Welcome';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 export default function App() {
-  const [count, setCount] = useState(0);
+  const [user] = useAuthState(auth);
 
   return (
     <div className={styles.root}>
-      <Main />
+      {
+        user ?
+        (
+          <Main />
+        )
+        :
+        (
+          <Welcome />
+        )
+      }
     </div>
   )
 }
