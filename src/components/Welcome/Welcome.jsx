@@ -40,6 +40,7 @@ export default function Welcome() {
           <input 
             type="text" 
             onChange={handleChange}
+            value={username}
           />
           <button 
             type="submit"
