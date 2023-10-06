@@ -11,12 +11,13 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ChatList() {
 
   const [rooms, setRooms] = useState([]);
   const [user] = useAuthState(auth);
+  const location = useLocation();
 
   useEffect(() => {
     const q = query(
@@ -41,7 +42,11 @@ export default function ChatList() {
       {
         rooms.map(room => {
           return (
-            <Chat key={room.id} room={room} />
+            <Chat 
+              key={room.id}
+              room={room}
+              current={location.search.split('=')[1]===room.id}
+            />
           );
         })
       }
@@ -51,7 +56,7 @@ export default function ChatList() {
 
 function Chat(props) {
 
-  const { room } = props;
+  const { room, current } = props;
   let name = room.name;
 
   if (name.length > 20) {
@@ -60,7 +65,12 @@ function Chat(props) {
   }
 
   return (
-    <div className={styles.chat}>
+    <div 
+      className={styles.chat}
+      style={{
+        backgroundColor: current ? '#ececec' : 'white'
+      }}
+    >
       <Link className={styles.link} to={"/chat?roomId=" + room.id}>
         {name}
       </Link>

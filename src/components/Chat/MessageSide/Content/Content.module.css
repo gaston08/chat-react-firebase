@@ -1,8 +1,7 @@
 .root {
   background-color: white;
   position: absolute;
-  top: 70px;
-  height: calc(100vh - 70px - 100px);
+  height: calc(100vh - 100px);
   overflow-y: scroll;
   width: 100%;
 }

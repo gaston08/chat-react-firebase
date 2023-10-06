@@ -11,21 +11,18 @@ import { db } from "../../../../firebase";
 import Message from './Message/Message';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebase";
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function Content() {
 
   const [messages, setMessages] = useState([]);
   const [user] = useAuthState(auth);
   const divRef = useRef(null);
-  let a = window.location.search.split('=')[1];
-  const params = useParams();
-
-  console.log(params)
+  const location = useLocation();
 
   useEffect(() => {
     const q = query(
-      collection(db, "messages", a, "content"),
+      collection(db, "messages", location.search.split('=')[1], "content"),
       orderBy("createdAt", "desc"),
       limit(11)
     );
@@ -40,7 +37,7 @@ export default function Content() {
     });
     
     return () => unsubscribe;
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     divRef.current?.scrollIntoView({ behavior: "smooth" });
