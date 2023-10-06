@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Content.module.css';
 import {
   query,
@@ -16,8 +16,7 @@ export default function Content() {
 
   const [messages, setMessages] = useState([]);
   const [user] = useAuthState(auth);
-
-  console.log(user)
+  const divRef = useRef(null);
 
   useEffect(() => {
     const q = query(
@@ -34,8 +33,13 @@ export default function Content() {
       });
       setMessages(updatedData.reverse())
     });
+    
     return () => unsubscribe;
   }, []);
+
+  useEffect(() => {
+    divRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className={styles.root}>
@@ -50,6 +54,7 @@ export default function Content() {
           )
         })
       }
+      <div ref={divRef} />
     </div>
   );
 }
