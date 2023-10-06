@@ -6,6 +6,8 @@ import {
   invertColor,
   getInitials,
 } from '../../../../utils/chat';
+import { signOut } from "firebase/auth";
+
 
 export default function Profile(props) {
 
@@ -23,6 +25,7 @@ export default function Profile(props) {
           backgroundColor: color,
           color: oppositeColor
         }}
+        onClick={() => signOut(auth)}
       >
         {initials}
       </div>
