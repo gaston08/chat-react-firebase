@@ -40,10 +40,21 @@ export default function ChatList() {
       {
         rooms.map(room => {
           return (
-            <div key={room.id}>{room.name}</div>
+            <Chat key={room.id} room={room} />
           );
         })
       }
+    </div>
+  );
+}
+
+function Chat(props) {
+
+  const { room } = props;
+
+  return (
+    <div>
+      {room.name}
     </div>
   );
 }
