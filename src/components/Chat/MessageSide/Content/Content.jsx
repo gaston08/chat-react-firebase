@@ -8,10 +8,16 @@ import {
   limit,
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
+import Message from './Message/Message';
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../../firebase";
 
 export default function Content() {
 
   const [messages, setMessages] = useState([]);
+  const [user] = useAuthState(auth);
+
+  console.log(user)
 
   useEffect(() => {
     const q = query(
@@ -36,9 +42,11 @@ export default function Content() {
       {
         messages.map(message => {
           return (
-            <p key={message.id}>
-              {message.text}
-            </p>
+            <Message 
+              key={message.id}
+              message={message}
+              isOwner={message.uid === user.uid}
+            />
           )
         })
       }
