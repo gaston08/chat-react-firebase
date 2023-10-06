@@ -1,24 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Welcome.module.css';
 import { signInAnonymously, signOut } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import {
-  query,
   collection,
-  orderBy,
-  onSnapshot,
-  where,
-  getDocs,
-  limit,
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  useNavigate,
+} from "react-router-dom";
 
 export default function Welcome() {
 
+  const [user] = useAuthState(auth);
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const handleChange = e => {
     setUsername(e.target.value);
