@@ -1,4 +1,6 @@
 .root {
   flex: 0 0 250px;
   background-color: green;
+  height: 100%;
+  position: relative;
 }
