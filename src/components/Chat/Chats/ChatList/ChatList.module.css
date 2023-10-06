@@ -1,0 +1,4 @@
+.root {
+  background-color: yellow;
+  height: calc(100% - 100px - 100px);
+}
