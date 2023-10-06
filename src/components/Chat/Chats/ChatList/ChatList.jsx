@@ -11,6 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
+import { Link } from "react-router-dom";
 
 export default function ChatList() {
 
@@ -51,10 +52,18 @@ export default function ChatList() {
 function Chat(props) {
 
   const { room } = props;
+  let name = room.name;
+
+  if (name.length > 20) {
+    name = name.slice(0, 20);
+    name += '...';
+  }
 
   return (
-    <div>
-      {room.name}
+    <div className={styles.chat}>
+      <Link className={styles.link} to={"/chat?roomId=" + room.id}>
+        {name}
+      </Link>
     </div>
   );
 }

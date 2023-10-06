@@ -54,7 +54,7 @@ export default function CreateChat() {
           let result = await addDoc(collection(db, 'rooms'), {
             name: groupName,
             createdAt: serverTimestamp(),
-            members: [localStorage.getItem('userId')]
+            members: [localStorage.getItem('userId')],
           });
           await updateDoc(doc(db, "users", localStorage.getItem('userId')), {
             rooms: arrayUnion({
