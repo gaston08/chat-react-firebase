@@ -70,6 +70,20 @@ export default function CreateChat() {
           setError('could not create room');
           setLoading(false);
         }
+      } else {
+        let roomId;
+        querySnapshot.forEach((doc) => {
+          roomId = doc.id;
+        });
+        await updateDoc(doc(db, "users", localStorage.getItem('userId')), {
+          rooms: arrayUnion({
+            id: roomId,
+            name: groupName,
+          })
+        });
+        setGroupName('');
+        setError('');
+        setLoading(false);
       }
     } catch (e) {
       setLoading(false);
