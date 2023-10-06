@@ -6,7 +6,7 @@ import InputSide from './InputSide/InputSide';
 export default function Message() {
   return (
     <div className={styles.root}>
-      <Information />
+      {/* <Information /> */}
       <Content />
       <InputSide />
     </div>
