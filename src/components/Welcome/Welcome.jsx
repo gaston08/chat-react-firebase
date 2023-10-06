@@ -1,7 +1,18 @@
 import { useState } from 'react';
 import styles from './Welcome.module.css';
-import { signInAnonymously } from "firebase/auth";
-import { auth } from "../../firebase";
+import { signInAnonymously, signOut } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import {
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+  where,
+  getDocs,
+  limit,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export default function Welcome() {
 
@@ -20,13 +31,22 @@ export default function Welcome() {
     } else {
       setIsLoading(true);
       try {
+        let result = await signInAnonymously(auth);
         localStorage.setItem('username', username);
-        await signInAnonymously(auth);
+        let us = await addDoc(collection(db, 'users'), {
+          name: username,
+          createdAt: serverTimestamp(),
+          uid: result.user.uid,
+          rooms: []
+        });
+        localStorage.setItem('userId', us.id);
       } catch (e) {
-        localStorage.removeItem('username', username);
-        console.log(e);
-        setError('Error while loading');
-        setIsLoading(false);
+        signOut(auth).then(() => {
+          localStorage.removeItem('username', username);
+          console.log(e);
+          setError('Error while loading');
+          setIsLoading(false);
+        });
       }
     }
   }
