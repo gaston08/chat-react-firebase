@@ -15,7 +15,7 @@ export default function Chat() {
           a ?
           (<MessageSide />)
           :
-          (<NoChat />)
+          (<NoChat className={styles.nochat} />)
         }
       </>
       
@@ -23,7 +23,7 @@ export default function Chat() {
   );
 }
 
-function NoChat() {
+function NoChat(props) {
   return (
     <div
       style={{
@@ -33,6 +33,7 @@ function NoChat() {
         position: "relative",
         display: "flex",
       }}
+      {...props}
     >
       <h1>Select a chat</h1>
     </div>

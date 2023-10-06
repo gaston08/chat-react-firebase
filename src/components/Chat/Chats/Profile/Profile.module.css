@@ -19,3 +19,9 @@
   color: black;
   margin-left: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+  .root {
+    justify-content: space-between;
+  }
+}
