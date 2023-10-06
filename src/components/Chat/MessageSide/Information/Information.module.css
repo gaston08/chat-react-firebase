@@ -1,4 +1,5 @@
 .root {
   background-color: blue;
-  flex: 0 0 10%;
+  height: 70px;
+  position: absolute;
 }
