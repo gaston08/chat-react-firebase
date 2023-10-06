@@ -6,6 +6,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 export default function InputSide() {
 
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  let a = window.location.search.split('=')[1];
 
   const handleChange = e => {
     setMessage(e.target.value);
@@ -17,10 +19,12 @@ export default function InputSide() {
       return;
     }
 
+    setIsLoading(true);
+
     const { uid } = auth.currentUser;
     const name = localStorage.getItem('username');
 
-    await addDoc(collection(db, "messages"), {
+    await addDoc(collection(db, "messages", a, "content"), {
       text: message,
       name,
       createdAt: serverTimestamp(),
@@ -28,7 +32,7 @@ export default function InputSide() {
     });
 
     setMessage('');
-    // e.scroll.current.scrollIntoView({ behavior: "smooth" });
+    setIsLoading(false);
   }
 
   return (
@@ -45,6 +49,7 @@ export default function InputSide() {
             className={styles.input}
             onChange={handleChange}
             value={message}
+            disabled={isLoading}
           />
         </div>
         <button className={styles.sendButton}>

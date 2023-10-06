@@ -11,16 +11,21 @@ import { db } from "../../../../firebase";
 import Message from './Message/Message';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebase";
+import { useParams } from 'react-router-dom';
 
 export default function Content() {
 
   const [messages, setMessages] = useState([]);
   const [user] = useAuthState(auth);
   const divRef = useRef(null);
+  let a = window.location.search.split('=')[1];
+  const params = useParams();
+
+  console.log(params)
 
   useEffect(() => {
     const q = query(
-      collection(db, "messages"),
+      collection(db, "messages", a, "content"),
       orderBy("createdAt", "desc"),
       limit(11)
     );

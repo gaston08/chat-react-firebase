@@ -1,5 +1,4 @@
 .root {
-  background-color: red;
   height: 100px;
   display: flex;
   align-items: center;
@@ -17,6 +16,6 @@
 }
 
 .username {
-  color: white;
+  color: black;
   margin-left: 10px;
 }

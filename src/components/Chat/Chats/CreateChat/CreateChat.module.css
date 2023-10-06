@@ -1,5 +1,4 @@
 .root {
-  background-color: blue;
   height: 100px;
   padding: 15px 0;
   display: flex;
@@ -10,11 +9,11 @@
 
 .root div {
   margin-bottom: 10px;
-  color: white;
+  color: black;
 }
 
 .root input {
-  border: none;
+  border: 1px solid black;
   border-radius: 20px;
   padding: 12px;
 }

@@ -1,4 +1,23 @@
 .root {
-  background-color: yellow;
   height: calc(100% - 100px - 100px);
+}
+
+.chat {
+  border: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 20px;
+}
+
+.chat:hover {
+  cursor: pointer;
+  background-color: #ececec;
+}
+
+.link {
+  color: black;
+  display: block;
+  width: 100%;
+  text-decoration: none;
 }

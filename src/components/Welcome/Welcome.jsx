@@ -22,7 +22,7 @@ export default function Welcome() {
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate('/chat');
     }
   }, [user]);
 

@@ -1,6 +1,8 @@
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate,
+  Route,
 } from "react-router-dom";
 import styles from './App.module.css';
 import Main from './components/Main/Main.jsx';
@@ -10,12 +12,16 @@ import { auth } from "./firebase";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/chat",
     element: <Main />,
   },
   {
     path: "/welcome",
     element: <Welcome />
+  },
+  {
+    path: '/',
+    element: <Navigate replace to="/chat" />
   }
 ]);
 
