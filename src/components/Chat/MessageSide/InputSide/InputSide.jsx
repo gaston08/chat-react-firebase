@@ -53,7 +53,7 @@ export default function InputSide() {
           />
         </div>
         <button className={styles.sendButton}>
-          Send
+          {">"}
         </button>
       </form>
     </div>
