@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import styles from './Content.module.css';
+import { useState, useEffect, useRef } from "react";
+import styles from "./Content.module.css";
 import {
   query,
   collection,
@@ -8,13 +8,12 @@ import {
   limit,
 } from "firebase/firestore";
 import { db } from "../../../../firebase";
-import Message from './Message/Message';
+import Message from "./Message/Message";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../../firebase";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 export default function Content() {
-
   const [messages, setMessages] = useState([]);
   const [user] = useAuthState(auth);
   const divRef = useRef(null);
@@ -22,20 +21,20 @@ export default function Content() {
 
   useEffect(() => {
     const q = query(
-      collection(db, "messages", location.search.split('=')[1], "content"),
+      collection(db, "rooms", location.search.split("=")[1], "messages"),
       orderBy("createdAt", "desc"),
-      limit(11)
+      limit(11),
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      let updatedData = snapshot.docs.map(doc => {
+      let updatedData = snapshot.docs.map((doc) => {
         let data = doc.data();
         data.id = doc.id;
         return data;
       });
-      setMessages(updatedData.reverse())
+      setMessages(updatedData.reverse());
     });
-    
+
     return () => unsubscribe;
   }, [location]);
 
@@ -45,17 +44,15 @@ export default function Content() {
 
   return (
     <div className={styles.root}>
-      {
-        messages.map(message => {
-          return (
-            <Message 
-              key={message.id}
-              message={message}
-              isOwner={message.uid === user.uid}
-            />
-          )
-        })
-      }
+      {messages.map((message) => {
+        return (
+          <Message
+            key={message.id}
+            message={message}
+            isOwner={message.uid === user.uid}
+          />
+        );
+      })}
       <div ref={divRef} />
     </div>
   );
