@@ -1,6 +1,5 @@
 import { useState } from "react";
-import styles from "./InputSide.module.css";
-import { auth, db } from "../../../../firebase";
+import { auth, db } from "../../../../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 export default function InputSide() {
@@ -36,18 +35,14 @@ export default function InputSide() {
   };
 
   return (
-    <div className={styles.root}>
-      <form className={styles.container} onSubmit={sendMessage}>
-        <div className={styles.inputBox}>
-          <input
-            type="text"
-            className={styles.input}
-            onChange={handleChange}
-            value={message}
-          />
-        </div>
-        <button className={styles.sendButton}>{">"}</button>
-      </form>
-    </div>
+    <form className="chat-message clearfix" onSubmit={sendMessage}>
+      <input
+        type="text"
+        onChange={handleChange}
+        value={message}
+        id="write-message"
+      />
+      <button>SEND</button>
+    </form>
   );
 }

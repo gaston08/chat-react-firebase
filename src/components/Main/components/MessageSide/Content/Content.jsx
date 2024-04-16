@@ -7,10 +7,10 @@ import {
   onSnapshot,
   limit,
 } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { db } from "../../../../../firebase";
 import Message from "./Message/Message";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../../firebase";
+import { auth } from "../../../../../firebase";
 import { useLocation } from "react-router-dom";
 
 export default function Content() {
@@ -43,16 +43,18 @@ export default function Content() {
   }, [messages]);
 
   return (
-    <div className={styles.root}>
-      {messages.map((message) => {
-        return (
-          <Message
-            key={message.id}
-            message={message}
-            isOwner={message.uid === user.uid}
-          />
-        );
-      })}
+    <div className="chat-history">
+      <ul>
+        {messages.map((message) => {
+          return (
+            <Message
+              key={message.id}
+              message={message}
+              isOwner={message.uid === user.uid}
+            />
+          );
+        })}
+      </ul>
       <div ref={divRef} />
     </div>
   );

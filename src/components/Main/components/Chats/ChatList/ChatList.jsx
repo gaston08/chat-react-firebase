@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./ChatList.module.css";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../../firebase";
+import { auth } from "../../../../../firebase";
 import {
   query,
   collection,
@@ -10,7 +10,7 @@ import {
   limit,
   where,
 } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { db } from "../../../../../firebase";
 import { Link, useLocation } from "react-router-dom";
 
 export default function ChatList() {
@@ -27,6 +27,13 @@ export default function ChatList() {
         data.id = doc.id;
         return data;
       });
+      const savedData = updatedData.map((a) => {
+        return {
+          name: a.name,
+          id: a.id,
+        };
+      });
+      localStorage.setItem("rooms", JSON.stringify(savedData));
       setRooms(updatedData);
     });
 
@@ -34,7 +41,7 @@ export default function ChatList() {
   }, []);
 
   return (
-    <div className={styles.root}>
+    <ul className="list">
       {rooms.map((room) => {
         return (
           <Chat
@@ -44,7 +51,7 @@ export default function ChatList() {
           />
         );
       })}
-    </div>
+    </ul>
   );
 }
 
@@ -58,15 +65,14 @@ function Chat(props) {
   }
 
   return (
-    <div
-      className={styles.chat}
-      style={{
-        backgroundColor: current ? "#ececec" : "white",
-      }}
-    >
-      <Link className={styles.link} to={"/chat?roomId=" + room.id}>
+    <li className="clearfix">
+      <Link
+        className="name"
+        style={{ textDecoration: "none" }}
+        to={"/chat?roomId=" + room.id}
+      >
         {name}
       </Link>
-    </div>
+    </li>
   );
 }

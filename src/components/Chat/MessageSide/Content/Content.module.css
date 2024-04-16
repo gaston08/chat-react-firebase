@@ -1,7 +1,0 @@
-.root {
-  background-color: white;
-  position: absolute;
-  height: calc(100vh - 100px);
-  overflow-y: scroll;
-  width: 100%;
-}

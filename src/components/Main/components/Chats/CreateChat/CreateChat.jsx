@@ -12,9 +12,9 @@ import {
   arrayUnion,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { db } from "../../../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../../firebase";
+import { auth } from "../../../../../firebase";
 
 export default function CreateChat() {
   const [groupName, setGroupName] = useState("");
@@ -100,14 +100,15 @@ export default function CreateChat() {
   };
 
   return (
-    <div className={styles.root}>
-      <div>Create or find a chat</div>
+    <div className="search">
+      <div style={{ marginBottom: 10 }}>Create or find a chat</div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           onChange={handleChange}
           value={groupName}
           disabled={loading}
+          placeHolder="room name"
         />
       </form>
       <p>{error}</p>
